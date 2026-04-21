@@ -257,9 +257,9 @@ function nextSection() {
     if (i < tituloTexto.length) {
       tituloEl.innerHTML += tituloTexto.charAt(i);
       i++;
-      setTimeout(digitarTitulo, 40); // velocidade do título
+      setTimeout(digitarTitulo, 70); // velocidade do título
     } else {
-      setTimeout(digitarTexto, 500); // espera antes do texto
+      setTimeout(digitarTexto, 800); // espera antes do texto
     }
   }
 
@@ -267,7 +267,7 @@ function nextSection() {
     if (j < textoTexto.length) {
       textoEl.innerHTML += textoTexto.charAt(j);
       j++;
-      setTimeout(digitarTexto, 30); // velocidade do texto
+      setTimeout(digitarTexto, 50); // velocidade do texto
     }
   }
 
