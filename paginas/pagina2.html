@@ -1,283 +1,225 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre você</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre você</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    html {
-  scroll-behavior: smooth;
-}
-    body {
-      color: white;
-      overflow-x: hidden;
-      background: #0b0b14;
-    }
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        color: white;
+        overflow-x: hidden;
+        background: #0b0b14;
+      }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
 
-    section {
-      min-height: 100dvh; /* 🔥 importante (melhor que height) */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
-    }
+      section {
+        min-height: 100dvh; /* 🔥 importante (melhor que height) */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
 
-    h1 {
-      font-size: clamp(1.5rem, 5vw, 2.2rem); /* 🔥 responsivo */
-      max-width: 90%;
-      line-height: 1.5;
-    }
+      h1 {
+        font-size: clamp(1.5rem, 5vw, 2.2rem); /* 🔥 responsivo */
+        max-width: 90%;
+        line-height: 1.5;
+      }
 
-    button {
-      margin-top: 30px;
-      padding: 10px 22px;
-      border: none;
-      border-radius: 8px;
-      background: white;
-      color: black;
-      font-size: clamp(0.9rem, 3vw, 1rem);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+      button {
+        margin-top: 30px;
+        padding: 10px 22px;
+        border: none;
+        border-radius: 8px;
+        background: white;
+        color: black;
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
 
-    button:hover {
-      transform: scale(1.08);
-    }
+      button:hover {
+        transform: scale(1.08);
+      }
 
-    /* ANIMAÇÃO */
-    .hidden {
-      opacity: 0;
-      transform: translateY(40px);
-    }
+      /* ANIMAÇÃO */
+      .hidden {
+        opacity: 0;
+        transform: translateY(40px);
+      }
 
-    .show {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.8s ease;
-    }
-  </style>
-</head>
+      .show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.8s ease;
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
+    <canvas id="particles"></canvas>
 
-  <canvas id="particles"></canvas>
-
-  <!-- FRASES -->
-  <section>
-    <h1 class="hidden">Eu tava pensando em algumas coisas sobre você Myrella</h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      Mesmo com o trabalho e várias coisas pra resolver...
-      você ainda arruma tempo pra falar comigo.
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      E isso pode parecer simples,
-      mas não é.
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      Também tem o teu jeito...
-      às vezes engraçado sem nem tentar.
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      E tua voz...
-      é diferente, adoro seu sotaque kkkk.
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      E a forma como você me trata..
-      é boa. É leve.
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      Acho que foi por isso que eu quis fazer isso pra você
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      Pra te falar que você é uma pessoa incrível
-    </h1>
-    <button onclick="nextSection()">Continuar</button>
-  </section>
-
-  <section>
-    <h1 class="hidden">
-      E que sempre vou estar ao seu lado quando as coisas ficarem difíceis
-    </h1>
-     <button onclick="finalSurpresa()">Final</button>
-  </section>
-
-
-  <script>
-    // animação ao entrar na tela
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target.querySelector('.hidden');
-          if (el) el.classList.add('show');
-        }
-      });
-    }, { threshold: 0.6 });
-
-    document.querySelectorAll('section').forEach(sec => {
-      observer.observe(sec);
-    });
-
-    // scroll suave (🔥 corrigido pra mobile)
-    
-    let currentSection = 0;
-const sections = document.querySelectorAll('section');
-
-function nextSection() {
-  currentSection++;
-
-  if (currentSection < sections.length) {
-    sections[currentSection].scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
-  }
-}
-
-    // PARTICULAS
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-
-    const particles = [];
-    const color = "rgba(180, 0, 255, 0.75)";
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 3 + 1,
-        speedY: Math.random() * 1 + 0.2
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach(p => {
-        p.y -= p.speedY;
-
-        if (p.y < 0) {
-          p.y = canvas.height;
-          p.x = Math.random() * canvas.width;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 12;
-
-        ctx.fillStyle = color;
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    function finalSurpresa() {
-  document.body.innerHTML = `
-    <section style="
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      flex-direction:column;
-      color:white;
-      background:#0b0b14;
-      padding:20px;
-    ">
-      <h1 id="titulo" style="font-size:2.2rem; margin-bottom:20px;"></h1>
-      <p id="texto" style="font-size:1.2rem; opacity:0.8;"></p>
+    <!-- FRASES -->
+    <section>
+      <h1 class="hidden">
+        Eu tava pensando em algumas coisas sobre você Myrella
+      </h1>
+      <button onclick="nextSection()">Continuar</button>
     </section>
-  `;
 
-  const tituloTexto = "Parabéns pelos seus 20 aninhos meu amor 💜";
-  const textoTexto = "Eu só queria que você soubesse disso, espero que vc tenha gostado :)";
+    <section>
+      <h1 class="hidden">
+        Mesmo com o trabalho e várias coisas pra resolver... você ainda arruma
+        tempo pra falar comigo.
+      </h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-  let i = 0;
-  let j = 0;
+    <section>
+      <h1 class="hidden">E isso pode parecer simples, mas não é.</h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-  const tituloEl = document.getElementById("titulo");
-  const textoEl = document.getElementById("texto");
+    <section>
+      <h1 class="hidden">
+        Também tem o teu jeito... às vezes engraçado sem nem tentar.
+      </h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-  function digitarTitulo() {
-    if (i < tituloTexto.length) {
-      tituloEl.innerHTML += tituloTexto.charAt(i);
-      i++;
-      setTimeout(digitarTitulo, 70); // velocidade do título
-    } else {
-      setTimeout(digitarTexto, 800); // espera antes do texto
-    }
-  }
+    <section>
+      <h1 class="hidden">E tua voz... é diferente, adoro seu sotaque kkkk.</h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-  function digitarTexto() {
-    if (j < textoTexto.length) {
-      textoEl.innerHTML += textoTexto.charAt(j);
-      j++;
-      setTimeout(digitarTexto, 50); // velocidade do texto
-    }
-  }
+    <section>
+      <h1 class="hidden">E a forma como você me trata.. é boa. É leve.</h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-  digitarTitulo();
-}
+    <section>
+      <h1 class="hidden">
+        Acho que foi por isso que eu quis fazer isso pra você
+      </h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-    animate();
+    <section>
+      <h1 class="hidden">Pra te falar que você é uma pessoa incrível</h1>
+      <button onclick="nextSection()">Continuar</button>
+    </section>
 
-    window.addEventListener('resize', resizeCanvas);
-  </script>
+    <section>
+      <h1 class="hidden">
+        E que sempre vou estar ao seu lado quando as coisas ficarem difíceis
+      </h1>
+      <button><a href="pagina3.html">Próximo</a></button>
+    </section>
 
-</body>
+    <script>
+      // animação ao entrar na tela
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target.querySelector(".hidden");
+              if (el) el.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.6 },
+      );
+
+      document.querySelectorAll("section").forEach((sec) => {
+        observer.observe(sec);
+      });
+
+      // scroll suave (🔥 corrigido pra mobile)
+
+      let currentSection = 0;
+      const sections = document.querySelectorAll("section");
+
+      function nextSection() {
+        currentSection++;
+
+        if (currentSection < sections.length) {
+          sections[currentSection].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }
+
+      // PARTICULAS
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      resizeCanvas();
+
+      const particles = [];
+      const color = "rgba(180, 0, 255, 0.75)";
+
+      for (let i = 0; i < 80; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          speedY: Math.random() * 1 + 0.2,
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          p.y -= p.speedY;
+
+          if (p.y < 0) {
+            p.y = canvas.height;
+            p.x = Math.random() * canvas.width;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+          ctx.shadowColor = color;
+          ctx.shadowBlur = 12;
+
+          ctx.fillStyle = color;
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      window.addEventListener("resize", resizeCanvas);
+    </script>
+  </body>
 </html>

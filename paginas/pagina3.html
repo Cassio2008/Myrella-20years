@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre nós</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0b0b14;
+      color: white;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .bloco {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 80px;
+
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .bloco.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bloco.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .bloco img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(180, 0, 255, 0.3);
+      transition: transform 0.4s ease;
+    }
+
+    .bloco img:hover {
+      transform: scale(1.05);
+    }
+
+    .bloco p {
+      max-width: 400px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .final-btn {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: black;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 700px) {
+      .bloco {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .bloco.reverse {
+        flex-direction: column;
+      }
+
+      .bloco img {
+        width: 70vw;
+        height: 70vw;
+      }
+    }
+    img#sla{
+        object-position: bottom center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Coisas que admiro em você</h1>
+
+  <div class="container">
+
+    <div class="bloco">
+      <img src="../img/WhatsApp Image 2026-04-19 at 21.30.43.jpeg" id="sla">
+      <p> Gosto da forma como você consegue ver o lado bom das coisas, mesmo quando não é tão fácil</p>
+    </div>
+
+    <div class="bloco reverse">
+      <img src="../img/m2.jpeg">
+      <p>Você não desiste fácil… quando quer algo, vai até o fim pra conseguir, e isso é algo que eu admiro</p>
+    </div>
+
+    <div class="bloco">
+      <img src="../img/m3.jpeg">
+      <p>O jeito que você consegue deixar qualquer ambiente mais leve, só sendo você mesma</p>
+    </div>
+
+  </div>
+
+  <div class="final-btn">
+    <button onclick="irFinal()">Continuar</button>
+  </div>
+
+  <script>
+    // animação ao aparecer na tela
+    const blocos = document.querySelectorAll('.bloco');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    blocos.forEach(bloco => observer.observe(bloco));
+
+    function irFinal() {
+      window.location.href = "./pagina4.html"; // ajusta se precisar
+    }
+  </script>
+
+</body>
+</html>

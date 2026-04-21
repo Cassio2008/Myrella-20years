@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0b0b14;
+      color: white;
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 20px;
+      color: rgb(247, 4, 206);
+      text-shadow: 0px 0px 12px rgba(247, 4, 207, 0.3);
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    /* cursor piscando */
+    .cursor::after {
+      content: "|";
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <h1 id="titulo" class="cursor"></h1>
+    <p id="texto"></p>
+  </div>
+
+  <script>
+    // ===== TEXTO =====
+    const tituloTexto = "Parabéns pelos seus 20 aninhos Myrella 💜";
+    const textoTexto = "Espero que esse pequeno site tenha conseguido te mostrar um pouco do que eu penso sobre você. Você é uma pessoa muito especial pra mim.";
+
+    let i = 0;
+    let j = 0;
+
+    const tituloEl = document.getElementById("titulo");
+    const textoEl = document.getElementById("texto");
+
+    function digitarTitulo() {
+      if (i < tituloTexto.length) {
+        tituloEl.innerHTML += tituloTexto.charAt(i);
+        i++;
+        setTimeout(digitarTitulo, 40);
+      } else {
+        tituloEl.classList.remove("cursor");
+        textoEl.classList.add("cursor");
+        setTimeout(digitarTexto, 500);
+      }
+    }
+
+    function digitarTexto() {
+      if (j < textoTexto.length) {
+        textoEl.innerHTML += textoTexto.charAt(j);
+        j++;
+        setTimeout(digitarTexto, 30);
+      } else {
+        textoEl.classList.remove("cursor");
+      }
+    }
+
+    digitarTitulo();
+
+    // ===== PARTICULAS =====
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+
+    const particles = [];
+    const color = "rgba(180, 0, 255, 0.75)";
+
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedY: Math.random() * 1 + 0.2
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.y -= p.speedY;
+
+        if (p.y < 0) {
+          p.y = canvas.height;
+          p.x = Math.random() * canvas.width;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 12;
+
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', resizeCanvas);
+  </script>
+
+</body>
+</html>
