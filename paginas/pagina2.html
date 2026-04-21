@@ -12,7 +12,9 @@
       box-sizing: border-box;
       font-family: Arial, Helvetica, sans-serif;
     }
-
+    html {
+  scroll-behavior: smooth;
+}
     body {
       color: white;
       overflow-x: hidden;
@@ -166,13 +168,20 @@
     });
 
     // scroll suave (🔥 corrigido pra mobile)
-    function nextSection() {
-      const next = window.scrollY + window.innerHeight;
-      window.scrollTo({
-        top: next,
-        behavior: 'smooth'
-      });
-    }
+    
+    let currentSection = 0;
+const sections = document.querySelectorAll('section');
+
+function nextSection() {
+  currentSection++;
+
+  if (currentSection < sections.length) {
+    sections[currentSection].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
+}
 
     // PARTICULAS
     const canvas = document.getElementById('particles');
