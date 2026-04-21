@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Myrella</title>
-
   <style>
     * {
       margin: 0;
@@ -33,31 +33,31 @@
     /* CONTEÚDO */
     .container {
       text-align: center;
-      max-width: 600px;
+      max-width: 90%;
       padding: 20px;
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: clamp(2rem, 6vw, 3rem);
       margin-bottom: 20px;
       color: rgb(247, 4, 206);
       text-shadow: 0px 0px 10px rgba(247, 4, 207, 0.212);
     }
 
     p {
-      font-size: 1.3rem;
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
       line-height: 1.6;
       opacity: 0.9;
     }
 
     button {
       margin-top: 30px;
-      padding: 12px 28px;
+      padding: 10px 22px;
       border: none;
       border-radius: 8px;
       background: white;
       color: black;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 3vw, 1rem);
       cursor: pointer;
       transition: all 0.05s ease;
     }
@@ -77,13 +77,16 @@
       transform: translateY(0);
       transition: all 0.8s ease;
     }
-    img{
-        object-position: bottom center;
-        object-fit: cover;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-    }
+        img {
+  width: 60vw;
+  max-width: 280px;
+  height: 60vw;
+  max-height: 280px;
+
+  object-fit: cover;
+  object-position: bottom center;
+  border-radius: 50%;
+}
   </style>
 </head>
 
