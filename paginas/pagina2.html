@@ -142,15 +142,9 @@
     <h1 class="hidden">
       E que sempre vou estar ao seu lado quando as coisas ficarem difíceis
     </h1>
-    <button onclick="nextSection()">Continuar</button>
+     <button onclick="finalSurpresa()">Final</button>
   </section>
 
-  <section>
-    <h1 class="hidden">
-      Parabéns pelos seus 20 aninhos meu amor! Desejo tudo de bom para você e espero que sua vida seja repleta de felicidade
-    </h1>
-    <button onclick="alert('Feliz aniver fofa🙂')">E aí?</button>
-  </section>
 
   <script>
     // animação ao entrar na tela
@@ -231,6 +225,54 @@ function nextSection() {
 
       requestAnimationFrame(animate);
     }
+
+    function finalSurpresa() {
+  document.body.innerHTML = `
+    <section style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      flex-direction:column;
+      color:white;
+      background:#0b0b14;
+      padding:20px;
+    ">
+      <h1 id="titulo" style="font-size:2.2rem; margin-bottom:20px;"></h1>
+      <p id="texto" style="font-size:1.2rem; opacity:0.8;"></p>
+    </section>
+  `;
+
+  const tituloTexto = "Parabéns pelos seus 20 aninhos meu amor! 💜";
+  const textoTexto = "Eu só queria que você soubesse disso, espero que vc tenha gostado :)";
+
+  let i = 0;
+  let j = 0;
+
+  const tituloEl = document.getElementById("titulo");
+  const textoEl = document.getElementById("texto");
+
+  function digitarTitulo() {
+    if (i < tituloTexto.length) {
+      tituloEl.innerHTML += tituloTexto.charAt(i);
+      i++;
+      setTimeout(digitarTitulo, 40); // velocidade do título
+    } else {
+      setTimeout(digitarTexto, 500); // espera antes do texto
+    }
+  }
+
+  function digitarTexto() {
+    if (j < textoTexto.length) {
+      textoEl.innerHTML += textoTexto.charAt(j);
+      j++;
+      setTimeout(digitarTexto, 30); // velocidade do texto
+    }
+  }
+
+  digitarTitulo();
+}
 
     animate();
 
