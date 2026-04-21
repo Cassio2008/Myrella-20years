@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre você</title>
 
   <style>
@@ -26,7 +27,7 @@
     }
 
     section {
-      height: 100vh;
+      min-height: 100vh; /* 🔥 importante (melhor que height) */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -36,21 +37,21 @@
     }
 
     h1 {
-      font-size: 2rem;
-      max-width: 600px;
+      font-size: clamp(1.5rem, 5vw, 2.2rem); /* 🔥 responsivo */
+      max-width: 90%;
       line-height: 1.5;
     }
 
     button {
       margin-top: 30px;
-      padding: 12px 28px;
+      padding: 10px 22px;
       border: none;
       border-radius: 8px;
       background: white;
       color: black;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 3vw, 1rem);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
     button:hover {
@@ -135,9 +136,16 @@
     <button onclick="nextSection()">Continuar</button>
   </section>
 
-   <section>
+  <section>
     <h1 class="hidden">
-      Feliz aníversario Myrella! Desejo tudo de bom para você e espero que sua vida seja repleta de felicidade 🙂
+      E que sempre vou estar ao seu lado quando as coisas ficarem difíceis
+    </h1>
+    <button onclick="nextSection()">Continuar</button>
+  </section>
+
+  <section>
+    <h1 class="hidden">
+      Parabéns pelos seus 20 aninhos meu amor! Desejo tudo de bom para você e espero que sua vida seja repleta de felicidade
     </h1>
     <button onclick="alert('Feliz aniver fofa🙂')">E aí?</button>
   </section>
@@ -157,10 +165,11 @@
       observer.observe(sec);
     });
 
-    // scroll suave
+    // scroll suave (🔥 corrigido pra mobile)
     function nextSection() {
-      window.scrollBy({
-        top: window.innerHeight,
+      const next = window.scrollY + window.innerHeight;
+      window.scrollTo({
+        top: next,
         behavior: 'smooth'
       });
     }
@@ -169,8 +178,12 @@
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
 
     const particles = [];
     const color = "rgba(180, 0, 255, 0.75)";
@@ -212,10 +225,7 @@
 
     animate();
 
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    window.addEventListener('resize', resizeCanvas);
   </script>
 
 </body>
